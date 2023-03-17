@@ -116,10 +116,6 @@ header > div:first-child > h1 > img {
 	font-weight: 700;
 }
 
-.ingredient:not(:has(.name)) {
-	background-color: var(--ing-color);
-}
-
 .appliance {
 	background-color: var(--dev-color);
 }
@@ -230,12 +226,20 @@ header > div:first-child > h1 > img {
 	flex: 1;
 }
 
+.ingredients{
+    overflow: scroll;
+}
+
 .ingredient:has(.name) {
 	font-size: 12px;
 }
 
 .ingredient:has(.name) > span:first-child {
 	font-weight: 700;
+}
+
+.ingredient:not(:has(.name)) {
+    background-color: var(--ing-color);
 }
 
 .description {
@@ -245,5 +249,6 @@ header > div:first-child > h1 > img {
 	-webkit-line-clamp: 6;
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
-	overflow: hidden;
+	overflow: scroll;
+    text-overflow: ellipsis;
 }
