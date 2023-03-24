@@ -249,6 +249,6 @@ header > div:first-child > h1 > img {
 	-webkit-line-clamp: 6;
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
-	overflow: scroll;
+	overflow: auto;
     text-overflow: ellipsis;
 }
