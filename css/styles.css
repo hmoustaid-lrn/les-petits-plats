@@ -158,18 +158,21 @@ header > div:first-child > h1 > img {
 	padding: 15px 10px;
 }
 
-#filters > div > div:has(input) > div:last-child {
+#filters ul {
 	padding: 0 10px 10px 10px;
 	display: grid;
 	border-radius: 5px;
 	background-color: inherit;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 10px;
+	max-height: 275px;
+	overflow: scroll;
 }
 
-#filters > div > div:has(input) > div:last-child > * {
+#filters li {
 	cursor: pointer;
 	width: fit-content;
+	list-style-type: none;
 }
 
 #recipes {
