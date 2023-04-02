@@ -60,7 +60,9 @@ function extractTags(){
   }
 }
 
-// Cette fonction est la responsable d'afficher le menu des tags correspondant quand le flêche vers le bas est cliqué
+/* Cette fonction est la responsable d'afficher le menu des tags correspondant quand le flêche vers le bas est cliqué
+* Quand le flêche vers le haut est cliqué le menu se ferme
+*/
 function registerMenusEvents(){
     const ingredients = document.querySelector("#ingredients")
     const appliances = document.querySelector("#appliances")
@@ -68,6 +70,10 @@ function registerMenusEvents(){
     const elements = [ingredients, appliances, ustensils];
     for (let element of elements) {
         element.onclick = openMenu
+    }
+    const chevrons = document.querySelectorAll('.fa-chevron-up');
+    for (let chevron of chevrons) {
+        chevron.onclick = closeMenu
     }
 }
 
@@ -81,6 +87,14 @@ function openMenu({ target }) {
 	menu.style.display = 'none'
     const menu_input = document.querySelector(`#${target.id}_input`)
     menu_input.style.display = 'block'
+}
+
+function closeMenu({ target }) {
+    const menu_input =  target.parentElement.parentElement
+    const menuString = menu_input.id.split("_")[0]
+    const menu = document.querySelector(`#${menuString}`)
+    menu_input.removeAttribute('style');
+	menu.style.display = 'block'
 }
 
 // Cette fonction est la responsable de créer les tags pour chaque menu
