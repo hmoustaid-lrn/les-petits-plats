@@ -1,11 +1,15 @@
 let recipes = []
 let filteredRecipes = []
+let ingredientsTags = []
+let appliancesTags = []
+let ustensilsTags = []
 const searchbar = document.getElementById("searchbar")
 
 
 async function getRecipes() {
     const response = await fetch ('data/recipes.json');
     recipes = await response.json();
+    extractTags()
 }
 
 function searchRecipes() {
@@ -41,6 +45,12 @@ function displayRecipes() {
       const recipeCard = getRecipeCard(recipe);
       recipeSection.appendChild(recipeCard);
     }
+}
+
+function extractTags(){
+   ingredientsTags = [...new Set(recipes.flatMap(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient)))].sort();
+   appliancesTags = [...new Set(recipes.map(recipe => recipe.appliance))].sort();
+   ustensilsTags = [...new Set(recipes.flatMap(recipe => recipe.ustensils.map(ustensil => ustensil)))].sort();
 }
 
 async function init() {
