@@ -3,6 +3,11 @@ let filteredRecipes = []
 let ingredientsTags = []
 let appliancesTags = []
 let ustensilsTags = []
+let searchedTags = {
+	ingredient: [],
+	appliance: [],
+	ustensil: [],
+}
 const searchbar = document.getElementById("searchbar")
 
 async function getRecipes() {
@@ -24,7 +29,7 @@ function searchRecipes() {
 		}
 	
 	}
-    displayRecipes();
+    searchRecipesWithTags()
 }
 
 function registerSearchbarEvents(){
@@ -136,6 +141,41 @@ function createTagElement(tag, listEl) {
     const tagElement = document.createElement('li')
     tagElement.textContent = tag
     listEl.appendChild(tagElement)
+    tagElement.onclick = () => {
+        const menuString = listEl.id.split("s_")[0]
+        addTag(menuString, tag)
+    }
+}
+
+// Cette fonction est responsable d'ajouter ou de supprimer les tags à la filtration
+function addTag(name, value) {
+	searchedTags[name].push(value.toLowerCase())
+	const newTag = document.createElement('div')
+	const tagName = document.createElement('span')
+	const removeTag = document.createElement('i')
+	newTag.classList.add('tag')
+	newTag.classList.add(name)
+	tagName.textContent = value
+	removeTag.classList.add('fa-regular')
+	removeTag.classList.add('fa-circle-xmark')
+	removeTag.onclick = () => {
+		searchedTags[name].splice(searchedTags[name].indexOf(value.toLowerCase()), 1)
+		newTag.remove()
+		searchRecipes()
+	}
+	tags.appendChild(newTag)
+	newTag.appendChild(tagName)
+	newTag.appendChild(removeTag)
+	searchRecipes()
+}
+
+function searchRecipesWithTags() {
+	if (!searchedTags.ingredient.length && !searchedTags.appliance.length && !searchedTags.ustensil.length) {
+		return displayRecipes()
+	} else {
+		filteredRecipes = filteredRecipes.filter((recipe) => (!searchedTags.ingredient.length || recipe.ingredients.find((ingredient) => searchedTags.ingredient.includes(ingredient.ingredient.toLowerCase()))) && (!searchedTags.appliance.length || searchedTags.appliance.includes(recipe.appliance.toLowerCase())) && (!searchedTags.ustensil.length || recipe.ustensils.find((ustensil) => searchedTags.ustensil.includes(ustensil.toLowerCase()))))
+	}
+	displayRecipes()
 }
 
 async function init() {
