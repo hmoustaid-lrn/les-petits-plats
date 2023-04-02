@@ -73,11 +73,12 @@ function registerMenusEvents(){
     }
     const chevrons = document.querySelectorAll('.fa-chevron-up');
     for (let chevron of chevrons) {
-        chevron.onclick = closeMenu
+        chevron.onclick = closeTarget
     }
 }
 
 function openMenu({ target }) {
+    closeAllMenus()
     if(target.hasAttribute("id")){
         target = target
     }else{
@@ -89,12 +90,27 @@ function openMenu({ target }) {
     menu_input.style.display = 'block'
 }
 
-function closeMenu({ target }) {
-    const menu_input =  target.parentElement.parentElement
-    const menuString = menu_input.id.split("_")[0]
+function closeTarget({ target }) {
+    const menuInput =  target.parentElement.parentElement
+    closeMenuInput(menuInput)
+    
+}
+
+function closeMenuInput(menuInput){
+    const menuString = menuInput.id.split("_")[0]
     const menu = document.querySelector(`#${menuString}`)
-    menu_input.removeAttribute('style');
+    menuInput.removeAttribute('style');
 	menu.style.display = 'block'
+}
+
+function closeAllMenus(){
+    const ingredients_input = document.querySelector("#ingredients_input")
+    const appliances_input = document.querySelector("#appliances_input")
+    const ustensils_input = document.querySelector("#ustensils_input")
+    const menus_input = [ingredients_input, appliances_input, ustensils_input]
+    for(let menu_input of menus_input){
+        closeMenuInput(menu_input)
+    }
 }
 
 // Cette fonction est la responsable de créer les tags pour chaque menu
