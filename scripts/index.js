@@ -144,6 +144,7 @@ function createTagElement(tag, listEl) {
     tagElement.onclick = () => {
         const menuString = listEl.id.split("s_")[0]
         addTag(menuString, tag)
+        closeAllMenus()
     }
 }
 
