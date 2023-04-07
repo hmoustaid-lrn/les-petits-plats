@@ -13,7 +13,6 @@ const searchbar = document.getElementById("searchbar")
 async function getRecipes() {
     const response = await fetch ('data/recipes.json');
     recipes = await response.json();
-    extractTags()
 }
 
 function searchRecipes() {
@@ -57,9 +56,9 @@ function displayRecipes() {
 * La méthode Set est utilisée pour filtrer les tags en doublon, et l'opérateur de décomposition ... est utilisé pour convertir le Set en un tableau. Enfin, * la méthode sort est utilisée pour trier les tags par ordre alphabétique.
 */
 function extractTags(){
-   ingredientsTags = [...new Set(recipes.flatMap(recipe => recipe.ingredients.map(ingredient => capitalizeFirstLetter(ingredient.ingredient))))].sort();
-   appliancesTags = [...new Set(recipes.map(recipe => capitalizeFirstLetter(recipe.appliance)))].sort();
-   ustensilsTags = [...new Set(recipes.flatMap(recipe => recipe.ustensils.map(ustensil => capitalizeFirstLetter(ustensil))))].sort();
+   ingredientsTags = [...new Set(filteredRecipes.map(({ ingredients }) => capitalizeFirstLetter(ingredients[0].ingredient)))].sort();
+   appliancesTags = [...new Set(filteredRecipes.map(({ appliance }) => capitalizeFirstLetter(appliance)))].sort();
+   ustensilsTags = [...new Set(filteredRecipes.flatMap(({ ustensils }) => ustensils.map(ustensil => capitalizeFirstLetter(ustensil))))].sort();
    function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -120,6 +119,7 @@ function closeAllMenus(){
 
 // Cette fonction est la responsable de créer les tags pour chaque menu
 function displayTags(){
+    extractTags()
     const ingredients_list = document.querySelector("#ingredients_list")
     ingredients_list.innerHTML = ''
     ingredientsTags.forEach((ingredient) => {
