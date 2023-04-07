@@ -167,14 +167,18 @@ function addTag(name, value) {
 	tags.appendChild(newTag)
 	newTag.appendChild(tagName)
 	newTag.appendChild(removeTag)
-	searchRecipes()
+	searchRecipesWithTags()
 }
 
 function searchRecipesWithTags() {
 	if (!searchedTags.ingredient.length && !searchedTags.appliance.length && !searchedTags.ustensil.length) {
 		return displayRecipes()
 	} else {
-		filteredRecipes = filteredRecipes.filter((recipe) => (!searchedTags.ingredient.length || recipe.ingredients.find((ingredient) => searchedTags.ingredient.includes(ingredient.ingredient.toLowerCase()))) && (!searchedTags.appliance.length || searchedTags.appliance.includes(recipe.appliance.toLowerCase())) && (!searchedTags.ustensil.length || recipe.ustensils.find((ustensil) => searchedTags.ustensil.includes(ustensil.toLowerCase()))))
+		filteredRecipes = filteredRecipes.filter(recipe => (
+            (!searchedTags.ingredient.length || searchedTags.ingredient.every(ingredient => recipe.ingredients.some(item => item.ingredient.toLowerCase() === ingredient.toLowerCase()))) &&
+            (!searchedTags.appliance.length || searchedTags.appliance.includes(recipe.appliance.toLowerCase())) &&
+            (!searchedTags.ustensil.length || searchedTags.ustensil.every(ustensil => recipe.ustensils.map(item => item.toLowerCase()).includes(ustensil.toLowerCase())))
+          )); 
 	}
 	displayRecipes()
 }
