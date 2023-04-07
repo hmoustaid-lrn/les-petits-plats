@@ -120,18 +120,18 @@ function closeAllMenus(){
 
 // Cette fonction est la responsable de créer les tags pour chaque menu
 function displayTags(){
-    const ingredients_input = document.querySelector("#ingredients_input")
     const ingredients_list = document.querySelector("#ingredients_list")
+    ingredients_list.innerHTML = ''
     ingredientsTags.forEach((ingredient) => {
         createTagElement(ingredient, ingredients_list)
     })
-    const appliances_input = document.querySelector("#appliances_input")
     const appliances_list = document.querySelector("#appliances_list")
+    appliances_list.innerHTML = ''
     appliancesTags.forEach((appliance) => {
         createTagElement(appliance, appliances_list)
     })
-    const ustensils_input = document.querySelector("#ustensils_input")
     const ustensils_list = document.querySelector("#ustensils_list")
+    ustensils_list.innerHTML = ''
     ustensilsTags.forEach((ustensil) => {
         createTagElement(ustensil, ustensils_list)
     })
