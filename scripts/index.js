@@ -150,6 +150,10 @@ function createTagElement(tag, listEl) {
 
 // Cette fonction est responsable d'ajouter ou de supprimer les tags à la filtration
 function addTag(name, value) {
+    const isValueIncluded = Object.values(searchedTags).some(array => array.includes(value.toLowerCase()));
+    if (isValueIncluded){
+        return;
+    }
 	searchedTags[name].push(value.toLowerCase())
 	const newTag = document.createElement('div')
 	const tagName = document.createElement('span')
