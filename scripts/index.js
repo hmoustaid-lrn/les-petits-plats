@@ -3,6 +3,7 @@ let filteredRecipes = []
 let ingredientsTags = []
 let appliancesTags = []
 let ustensilsTags = []
+let targetTagsArray
 let searchedTags = {
 	ingredient: [],
 	appliance: [],
@@ -48,7 +49,6 @@ function displayRecipes() {
       const recipeCard = getRecipeCard(recipe);
       recipeSection.appendChild(recipeCard);
     }
-    displayTags()
 }
 
 
@@ -59,6 +59,11 @@ function extractTags(){
    ingredientsTags = [...new Set(filteredRecipes.map(({ ingredients }) => capitalizeFirstLetter(ingredients[0].ingredient)))].sort();
    appliancesTags = [...new Set(filteredRecipes.map(({ appliance }) => capitalizeFirstLetter(appliance)))].sort();
    ustensilsTags = [...new Set(filteredRecipes.flatMap(({ ustensils }) => ustensils.map(ustensil => capitalizeFirstLetter(ustensil))))].sort();
+   targetTagsArray = {
+    ingredients: ingredientsTags,
+    appliances: appliancesTags,
+    ustensils: ustensilsTags
+   }
    function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -92,6 +97,9 @@ function openMenu({ target }) {
 	menu.style.display = 'none'
     const menu_input = document.querySelector(`#${target.id}_input`)
     menu_input.style.display = 'block'
+    const selector = `#${target.id}_list`
+    extractTags()
+    displayTags(selector, targetTagsArray[`${target.id}`])
 }
 
 function closeTarget({ target }) {
@@ -105,6 +113,7 @@ function closeMenuInput(menuInput){
     const menu = document.querySelector(`#${menuString}`)
     menuInput.removeAttribute('style');
 	menu.style.display = 'block'
+    menuInput.querySelector("input").value = ''
 }
 
 function closeAllMenus(){
@@ -118,23 +127,10 @@ function closeAllMenus(){
 }
 
 // Cette fonction est la responsable de créer les tags pour chaque menu
-function displayTags(){
-    extractTags()
-    const ingredients_list = document.querySelector("#ingredients_list")
-    ingredients_list.innerHTML = ''
-    ingredientsTags.forEach((ingredient) => {
-        createTagElement(ingredient, ingredients_list)
-    })
-    const appliances_list = document.querySelector("#appliances_list")
-    appliances_list.innerHTML = ''
-    appliancesTags.forEach((appliance) => {
-        createTagElement(appliance, appliances_list)
-    })
-    const ustensils_list = document.querySelector("#ustensils_list")
-    ustensils_list.innerHTML = ''
-    ustensilsTags.forEach((ustensil) => {
-        createTagElement(ustensil, ustensils_list)
-    })
+function displayTags(selector, tagsArray){
+    const list = document.querySelector(selector);
+    list.innerHTML = '';
+    tagsArray.forEach(tag => createTagElement(tag, list));
 }
 
 function createTagElement(tag, listEl) {
@@ -185,6 +181,17 @@ function searchRecipesWithTags() {
           )); 
 	}
 	displayRecipes()
+}
+function searchTags(event){
+    const inputValue = event.target.value.toLowerCase();
+    const targetArray = {
+        ingredient: ingredientsTags,
+        appliance: appliancesTags,
+        ustensil: ustensilsTags
+    }
+    const foundElements = targetArray[`${event.target.name}`].filter(element => element.toLowerCase().includes(inputValue))
+    const selector = `#${event.target.name}s_list`
+    displayTags(selector, [...foundElements])
 }
 
 async function init() {
