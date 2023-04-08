@@ -17,7 +17,7 @@
 	display: none;
 	width: fit-content;
 	margin: auto;
-	color: red;
+	color: var(--ust-color);
 	font-size: 2rem;
 	font-weight: bold;
 }
