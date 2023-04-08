@@ -28,7 +28,7 @@
                 </div>
                 <div id="ingredients_input" class="ingredient hidden">
                     <div>
-                        <input name="ingredient" type="text" placeholder="Rechercher un ingrédient" oninput="searchTags(event)"/><i class="fa-solid fa-chevron-up" style ="cursor:pointer"></i>
+                        <input name="ingredient" type="text" placeholder="Rechercher un ingrédient" oninput="tagsSearchbar(event)"/><i class="fa-solid fa-chevron-up" style ="cursor:pointer"></i>
                     </div>
                     <ul id="ingredients_list"></ul>
                 </div>
@@ -39,7 +39,7 @@
                 </div>
                 <div id="appliances_input" class="appliance hidden">
                     <div>
-                        <input name="appliance" type="text" placeholder="Rechercher un appareil" oninput="searchTags(event)"/><i class="fa-solid fa-chevron-up" style ="cursor:pointer"></i>
+                        <input name="appliance" type="text" placeholder="Rechercher un appareil" oninput="tagsSearchbar(event)"/><i class="fa-solid fa-chevron-up" style ="cursor:pointer"></i>
                     </div>
                     <ul id="appliances_list"></ul>
                 </div>
@@ -50,7 +50,7 @@
                 </div>
                 <div id="ustensils_input" class="ustensil hidden">
                     <div>
-                        <input name="ustensil" type="text" placeholder="Rechercher un ustensile" oninput="searchTags(event)"/><i class="fa-solid fa-chevron-up" style ="cursor:pointer"></i>
+                        <input name="ustensil" type="text" placeholder="Rechercher un ustensile" oninput="tagsSearchbar(event)"/><i class="fa-solid fa-chevron-up" style ="cursor:pointer"></i>
                     </div>
                     <ul id="ustensils_list"></ul>
                 </div>
@@ -61,6 +61,8 @@
     <p id="errorDiv"></p>
     <script src="./scripts/index.js"></script>
     <script src="./scripts/recipes.js"></script>
+    <script src="./scripts/tags.js"></script>
+    <script src="./scripts/menus.js"></script>
 </body>
 
 </html>
