@@ -10,6 +10,7 @@ let searchedTags = {
 	ustensil: [],
 }
 const searchbar = document.getElementById("searchbar")
+const MIN_CHARS_TO_LAUNCH_SEARCH = 3
 
 async function getRecipes() {
     const response = await fetch ('data/recipes.json');
@@ -18,7 +19,7 @@ async function getRecipes() {
 
 function searchRecipes() {
 	const search = searchbar.value.toLowerCase()
-	if (!search || !search.length) {
+	if (!search || search.length < MIN_CHARS_TO_LAUNCH_SEARCH) {
 		filteredRecipes = [...recipes]
 	} else {
 		filteredRecipes = [];
