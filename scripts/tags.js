@@ -12,9 +12,26 @@ let searchedTags = {
 * La méthode Set est utilisée pour filtrer les tags en doublon, et l'opérateur de décomposition ... est utilisé pour convertir le Set en un tableau. Enfin, * la méthode sort est utilisée pour trier les tags par ordre alphabétique.
 */
 function extractTags(){
-    ingredientsTags = [...new Set(filteredRecipes.map(({ ingredients }) => capitalizeFirstLetter(ingredients[0].ingredient)))].sort();
-    appliancesTags = [...new Set(filteredRecipes.map(({ appliance }) => capitalizeFirstLetter(appliance)))].sort();
-    ustensilsTags = [...new Set(filteredRecipes.flatMap(({ ustensils }) => ustensils.map(ustensil => capitalizeFirstLetter(ustensil))))].sort();
+    ingredientsTags = [
+        ...new Set(
+            filteredRecipes
+                .flatMap(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient))
+                .map(ingredient => capitalizeFirstLetter(ingredient))
+        )
+    ].sort();    
+    appliancesTags = [
+        ...new Set(
+            filteredRecipes
+                .map(({ appliance }) => capitalizeFirstLetter(appliance))
+        )
+    ].sort();
+    
+    ustensilsTags = [
+        ...new Set(
+            filteredRecipes
+                .flatMap(({ ustensils }) => ustensils.map(ustensil => capitalizeFirstLetter(ustensil)))
+        )
+    ].sort();    
     targetTagsArray = {
      ingredients: ingredientsTags,
      appliances: appliancesTags,

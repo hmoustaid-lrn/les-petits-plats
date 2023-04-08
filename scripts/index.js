@@ -15,6 +15,7 @@ function firstLoadingOfRecipes(){
 }
 
 function searchRecipesInSearchbar() {
+    closeAllMenus()
 	const search = searchbar.value.toLowerCase()
 	if (search.length < MIN_CHARS_TO_LAUNCH_SEARCH) {
 		filteredRecipes = [...recipes]
