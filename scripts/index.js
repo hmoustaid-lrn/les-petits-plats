@@ -22,9 +22,14 @@ function searchRecipesInSearchbar() {
 	} else {
 		filteredRecipes = [];
 		for (let recipe of recipes) {
-			if (recipe.name.toLowerCase().includes(search) || recipe.ingredients.find((ing) => ing.ingredient.toLowerCase().includes(search)) || recipe.description.toLowerCase().includes(search)) {
-				filteredRecipes.push(recipe)
-			}
+			if (
+                recipe.name.toLowerCase().includes(search) ||
+                recipe.ingredients.find(ing => ing.ingredient.toLowerCase().includes(search)) ||
+                recipe.description.toLowerCase().includes(search)
+              ) {
+                filteredRecipes.push(recipe);
+              }
+              
 		}
 	
 	}
