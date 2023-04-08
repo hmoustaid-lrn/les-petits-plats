@@ -46,6 +46,12 @@ function registerSearchbarEvents(){
 function displayRecipes() {
     const recipeSection = document.getElementById('recipes');
     recipeSection.innerHTML = '';
+    if (!filteredRecipes.length) {
+		errorDiv.textContent = 'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.'
+        recipeSection.style.gridTemplateRows = 'unset'
+		errorDiv.style.display = 'inherit'
+		return
+	}
     recipeSection.style.gridTemplateRows = `repeat(${Math.ceil(recipes.length / 3)}, 365px)`
 	const timerIcon = document.createElement('i')
 	timerIcon.classList.add('fa-regular')
