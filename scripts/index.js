@@ -4,6 +4,8 @@ let filteredRecipes = []
 const searchbar = document.getElementById("searchbar")
 const MIN_CHARS_TO_LAUNCH_SEARCH = 3
 
+const recipeSection = document.getElementById('recipes');
+
 async function getRecipes() {
     const response = await fetch ('data/recipes.json');
     recipes = await response.json();
@@ -44,14 +46,13 @@ function registerSearchbarEvents(){
 }
 
 function displayRecipes() {
-    const recipeSection = document.getElementById('recipes');
-    recipeSection.innerHTML = '';
+    recipeSection.innerHTML = ''
     if (!filteredRecipes.length) {
-		errorDiv.textContent = 'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.'
-        recipeSection.style.gridTemplateRows = 'unset'
-		errorDiv.style.display = 'inherit'
-		return
-	}
+        console.log(filteredRecipes);
+        handleErrorDiv(true);
+        return;
+    }
+    handleErrorDiv(false);
     recipeSection.style.gridTemplateRows = `repeat(${Math.ceil(recipes.length / 3)}, 365px)`
 	const timerIcon = document.createElement('i')
 	timerIcon.classList.add('fa-regular')
@@ -59,6 +60,16 @@ function displayRecipes() {
     for (const recipe of filteredRecipes) {
       const recipeCard = getRecipeCard(recipe);
       recipeSection.appendChild(recipeCard);
+    }
+}
+
+function handleErrorDiv(display) {
+    if (display) {
+        errorDiv.textContent = 'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc.';
+        recipeSection.style.gridTemplateRows = 'unset';
+        errorDiv.style.display = 'inherit';
+    } else {
+        errorDiv.style.display = 'none';
     }
 }
 
