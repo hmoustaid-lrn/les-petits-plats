@@ -23,13 +23,13 @@ function searchRecipesInSearchbar() {
 		filteredRecipes = [...recipes]
 	} else {
 		filteredRecipes = [];
-		for (let recipe of recipes) {
+		for (let i = 0; i < recipes.length; i++) {
 			if (
-                recipe.name.toLowerCase().includes(search) ||
-                recipe.ingredients.find(ing => ing.ingredient.toLowerCase().includes(search)) ||
-                recipe.description.toLowerCase().includes(search)
+                recipes[i].name.toLowerCase().includes(search) ||
+                recipes[i].ingredients.find(ing => ing.ingredient.toLowerCase().includes(search)) ||
+                recipes[i].description.toLowerCase().includes(search)
               ) {
-                filteredRecipes.push(recipe);
+                filteredRecipes.push(recipes[i]);
               }
               
 		}
