@@ -23,16 +23,12 @@ function searchRecipesInSearchbar() {
 		filteredRecipes = [...recipes]
 	} else {
 		filteredRecipes = [];
-		for (let i = 0; i < recipes.length; i++) {
-			if (
-                recipes[i].name.toLowerCase().includes(search) ||
-                recipes[i].ingredients.find(ing => ing.ingredient.toLowerCase().includes(search)) ||
-                recipes[i].description.toLowerCase().includes(search)
-              ) {
-                filteredRecipes.push(recipes[i]);
-              }
-              
-		}
+		filteredRecipes = recipes.filter(recipe => (
+            recipe.name.toLowerCase().includes(search) ||
+            recipe.ingredients.some(ing => ing.ingredient.toLowerCase().includes(search)) ||
+            recipe.description.toLowerCase().includes(search)
+          ));
+          
 	
 	}
     //Il est nécessaire de permettre la combinaison des recherches avec les tags et les recherches à l'aide de la barre de recherche
